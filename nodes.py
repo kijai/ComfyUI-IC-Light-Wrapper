@@ -170,6 +170,7 @@ class LoadICLightUnetDiffusers:
     def load(self, diffusersmodel, model_path):
         unet = diffusersmodel["pipe"].unet
         device = mm.get_torch_device()
+
         unet_original_forward = unet.forward
 
         new_conv_in = torch.nn.Conv2d(8, unet.conv_in.out_channels, unet.conv_in.kernel_size, unet.conv_in.stride, unet.conv_in.padding)
@@ -235,6 +236,7 @@ class iclight_diffusers_sampler:
             },
             "optional"  : {
                 "bg_latent": ("LATENT",),
+                "fixed_seed": ("BOOLEAN", {"default": True}),
             }
         }
 
@@ -243,7 +245,7 @@ class iclight_diffusers_sampler:
     FUNCTION = "process"
     CATEGORY = "ELLA-Wrapper"
 
-    def process(self, latent, diffusers_model, width, height, steps, guidance_scale, denoise_strength, seed, scheduler, prompt, n_prompt, hidiffusion, bg_latent=None):
+    def process(self, latent, diffusers_model, width, height, steps, guidance_scale, denoise_strength, seed, scheduler, prompt, n_prompt, hidiffusion, bg_latent=None, fixed_seed=True):
         device = mm.get_torch_device()
         mm.unload_all_models()
         mm.soft_empty_cache()
@@ -297,15 +299,32 @@ class iclight_diffusers_sampler:
 
         concat_conds = latent["samples"]
         concat_conds = concat_conds * pipe.vae.config.scaling_factor
+        B, H, W, C = latent["samples"].shape
+        prompt_list = []
+        prompt_list.append(prompt)
+        if len(prompt_list) < B:
+            prompt_list += [prompt_list[-1]] * (B - len(prompt_list))
+
+        n_prompt_list = []
+        n_prompt_list.append(n_prompt)
+        if len(n_prompt_list) < B:
+
+            n_prompt_list += [n_prompt_list[-1]] * (B - len(n_prompt_list))
+
+        if fixed_seed:
+            generator = [torch.Generator(device=device).manual_seed(seed) for _ in range(B)]
+        else:
+            generator= [torch.Generator(device="cuda").manual_seed(i) for i in range(B)]
+        
 
         autocast_condition = (dtype != torch.float32) and not mm.is_device_mps(device)
         with torch.autocast(mm.get_autocast_device(device), dtype=dtype) if autocast_condition else nullcontext():
             
             images = pipe(
             image=bg_latent,
-            prompt = prompt,
+            prompt = prompt_list,
             strength = denoise_strength,
-            negative_prompt = n_prompt,
+            negative_prompt = n_prompt_list,
             prompt_embeds=None,
             negative_prompt_embeds=None,
             guidance_scale=guidance_scale,
@@ -313,10 +332,7 @@ class iclight_diffusers_sampler:
             height=height,
             width=width,
             cross_attention_kwargs={'concat_conds': concat_conds},
-            generator=[
-            torch.Generator(device=device).manual_seed(seed + i)
-            for i in range(1)
-            ],
+            generator=generator,
                 output_type="pt",
             ).images
 
