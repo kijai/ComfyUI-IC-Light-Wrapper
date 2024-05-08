@@ -316,7 +316,11 @@ class iclight_diffusers_sampler:
             generator = [torch.Generator(device=device).manual_seed(seed) for _ in range(B)]
         else:
             generator= [torch.Generator(device="cuda").manual_seed(i) for i in range(B)]
-        
+
+        pbar = comfy.utils.ProgressBar(steps)
+        def progress_counter_callback(pipeline, step, timestep, callback_kwargs):
+            pbar.update(1)
+            return callback_kwargs or {}
 
         autocast_condition = (dtype != torch.float32) and not mm.is_device_mps(device)
         with torch.autocast(mm.get_autocast_device(device), dtype=dtype) if autocast_condition else nullcontext():
@@ -329,14 +333,16 @@ class iclight_diffusers_sampler:
             prompt_embeds=None,
             negative_prompt_embeds=None,
             guidance_scale=guidance_scale,
-            num_inference_steps=steps,
+            num_inference_steps=int(round(steps / denoise_strength)),
             height=height,
             width=width,
             cross_attention_kwargs={'concat_conds': concat_conds},
             generator=generator,
-                output_type="latent",
+            output_type="latent",
+            callback_on_step_end=progress_counter_callback,
+            #callback_on_step_end_tensor_inputs=["latents", "prompt_embeds", "negative_prompt_embeds"],
             ).images
-            images = 1.0 / scale_factor * images 
+            images = images / scale_factor
             #image_out = images.permute(0, 2, 3, 1).cpu().float()
             return ({"samples": images},)
                 
