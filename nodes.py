@@ -55,7 +55,7 @@ class diffusers_model_loader:
     RETURN_TYPES = ("DIFFUSERSMODEL",)
     RETURN_NAMES = ("diffusers_model",)
     FUNCTION = "loadmodel"
-    CATEGORY = "ELLA-Wrapper"
+    CATEGORY = "IC-Light-Wrapper"
 
     def loadmodel(self, model, clip, vae):
         mm.soft_empty_cache()
@@ -165,7 +165,7 @@ class LoadICLightUnetDiffusers:
 
     RETURN_TYPES = ("DIFFUSERSMODEL",)
     FUNCTION = "load"
-    CATEGORY = "ELLA-Wrapper"
+    CATEGORY = "IC-Light-Wrapper"
 
     def load(self, diffusersmodel, model_path):
         unet = diffusersmodel["pipe"].unet
@@ -243,7 +243,7 @@ class iclight_diffusers_sampler:
     RETURN_TYPES = ("LATENT",)
     RETURN_NAMES = ("samples",)
     FUNCTION = "process"
-    CATEGORY = "ELLA-Wrapper"
+    CATEGORY = "IC-Light-Wrapper"
 
     def process(self, latent, diffusers_model, width, height, steps, guidance_scale, denoise_strength, seed, scheduler, prompt, n_prompt, hidiffusion, bg_latent=None, fixed_seed=True):
         device = mm.get_torch_device()
