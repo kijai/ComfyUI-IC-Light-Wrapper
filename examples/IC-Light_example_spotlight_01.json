@@ -1,59 +1,7 @@
 {
-  "last_node_id": 34,
-  "last_link_id": 57,
+  "last_node_id": 36,
+  "last_link_id": 63,
   "nodes": [
-    {
-      "id": 6,
-      "type": "CheckpointLoaderSimple",
-      "pos": [
-        563,
-        285
-      ],
-      "size": {
-        "0": 315,
-        "1": 98
-      },
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            47
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            2
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            3,
-            8,
-            32
-          ],
-          "shape": 3,
-          "slot_index": 2
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CheckpointLoaderSimple"
-      },
-      "widgets_values": [
-        "1_5/Deliberate_v6 (SFW).safetensors"
-      ]
-    },
     {
       "id": 5,
       "type": "diffusers_model_loader",
@@ -66,7 +14,7 @@
         "1": 66
       },
       "flags": {},
-      "order": 2,
+      "order": 3,
       "mode": 0,
       "inputs": [
         {
@@ -113,7 +61,7 @@
         "1": 58
       },
       "flags": {},
-      "order": 4,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
@@ -127,7 +75,7 @@
           "name": "DIFFUSERSMODEL",
           "type": "DIFFUSERSMODEL",
           "links": [
-            35
+            58
           ],
           "shape": 3,
           "slot_index": 0
@@ -152,7 +100,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 5,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
@@ -172,7 +120,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            34
+            59
           ],
           "shape": 3,
           "slot_index": 0
@@ -215,7 +163,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            48
+            60
           ],
           "shape": 3,
           "slot_index": 0
@@ -223,31 +171,6 @@
       ],
       "properties": {
         "Node name for S&R": "VAEEncode"
-      }
-    },
-    {
-      "id": 10,
-      "type": "PreviewImage",
-      "pos": [
-        1842,
-        318
-      ],
-      "size": {
-        "0": 526.656982421875,
-        "1": 580.8809814453125
-      },
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 36
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
       }
     },
     {
@@ -303,66 +226,6 @@
       ]
     },
     {
-      "id": 26,
-      "type": "iclight_diffusers_sampler",
-      "pos": [
-        1372,
-        434
-      ],
-      "size": {
-        "0": 400,
-        "1": 382
-      },
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "diffusers_model",
-          "type": "DIFFUSERSMODEL",
-          "link": 35
-        },
-        {
-          "name": "latent",
-          "type": "LATENT",
-          "link": 34
-        },
-        {
-          "name": "bg_latent",
-          "type": "LATENT",
-          "link": 48,
-          "slot_index": 2
-        }
-      ],
-      "outputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "links": [
-            36
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "iclight_diffusers_sampler"
-      },
-      "widgets_values": [
-        512,
-        512,
-        15,
-        2,
-        0.9,
-        0,
-        "fixed",
-        "DPMSolverMultistepScheduler_SDE_karras",
-        "spotlight",
-        "bad quality, bad picture",
-        false
-      ]
-    },
-    {
       "id": 9,
       "type": "LoadImage",
       "pos": [
@@ -374,7 +237,7 @@
         "1": 314
       },
       "flags": {},
-      "order": 1,
+      "order": 0,
       "mode": 0,
       "outputs": [
         {
@@ -413,7 +276,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 3,
+      "order": 2,
       "mode": 0,
       "inputs": [
         {
@@ -505,12 +368,12 @@
         262,
         912
       ],
-      "size": [
-        315,
-        270
-      ],
+      "size": {
+        "0": 315,
+        "1": 270
+      },
       "flags": {},
-      "order": 6,
+      "order": 5,
       "mode": 0,
       "inputs": [
         {
@@ -611,10 +474,10 @@
         989,
         893
       ],
-      "size": [
-        342,
-        347
-      ],
+      "size": {
+        "0": 342,
+        "1": 347
+      },
       "flags": {},
       "order": 11,
       "mode": 0,
@@ -628,6 +491,186 @@
       "properties": {
         "Node name for S&R": "PreviewImage"
       }
+    },
+    {
+      "id": 10,
+      "type": "PreviewImage",
+      "pos": [
+        2076,
+        347
+      ],
+      "size": {
+        "0": 526.656982421875,
+        "1": 580.8809814453125
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 63
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 35,
+      "type": "iclight_diffusers_sampler",
+      "pos": [
+        1372,
+        434
+      ],
+      "size": {
+        "0": 400,
+        "1": 406
+      },
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "diffusers_model",
+          "type": "DIFFUSERSMODEL",
+          "link": 58
+        },
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "link": 59
+        },
+        {
+          "name": "bg_latent",
+          "type": "LATENT",
+          "link": 60
+        }
+      ],
+      "outputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "links": [
+            61
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "iclight_diffusers_sampler"
+      },
+      "widgets_values": [
+        512,
+        512,
+        25,
+        2,
+        0.9,
+        819223299872531,
+        "randomize",
+        "DPMSolverMultistepScheduler",
+        "positive",
+        "negative",
+        false,
+        true
+      ]
+    },
+    {
+      "id": 36,
+      "type": "VAEDecode",
+      "pos": [
+        1817,
+        427
+      ],
+      "size": {
+        "0": 210,
+        "1": 46
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 61
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 62,
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            63
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 6,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        563,
+        285
+      ],
+      "size": {
+        "0": 315,
+        "1": 98
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            47
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            2
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            3,
+            8,
+            32,
+            62
+          ],
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "1_5\\photon_v1.safetensors"
+      ]
     }
   ],
   "links": [
@@ -672,30 +715,6 @@
       "VAE"
     ],
     [
-      34,
-      8,
-      0,
-      26,
-      1,
-      "LATENT"
-    ],
-    [
-      35,
-      22,
-      0,
-      26,
-      0,
-      "DIFFUSERSMODEL"
-    ],
-    [
-      36,
-      26,
-      0,
-      10,
-      0,
-      "IMAGE"
-    ],
-    [
       40,
       9,
       0,
@@ -718,14 +737,6 @@
       5,
       0,
       "MODEL"
-    ],
-    [
-      48,
-      25,
-      0,
-      26,
-      2,
-      "LATENT"
     ],
     [
       50,
@@ -780,6 +791,54 @@
       30,
       0,
       33,
+      0,
+      "IMAGE"
+    ],
+    [
+      58,
+      22,
+      0,
+      35,
+      0,
+      "DIFFUSERSMODEL"
+    ],
+    [
+      59,
+      8,
+      0,
+      35,
+      1,
+      "LATENT"
+    ],
+    [
+      60,
+      25,
+      0,
+      35,
+      2,
+      "LATENT"
+    ],
+    [
+      61,
+      35,
+      0,
+      36,
+      0,
+      "LATENT"
+    ],
+    [
+      62,
+      6,
+      2,
+      36,
+      1,
+      "VAE"
+    ],
+    [
+      63,
+      36,
+      0,
+      10,
       0,
       "IMAGE"
     ]
