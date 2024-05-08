@@ -240,8 +240,8 @@ class iclight_diffusers_sampler:
             }
         }
 
-    RETURN_TYPES = ("IMAGE",)
-    RETURN_NAMES = ("images",)
+    RETURN_TYPES = ("LATENT",)
+    RETURN_NAMES = ("samples",)
     FUNCTION = "process"
     CATEGORY = "ELLA-Wrapper"
 
@@ -252,6 +252,7 @@ class iclight_diffusers_sampler:
         dtype = mm.unet_dtype()
         pipe=diffusers_model['pipe']
         pipe.to(device, dtype=dtype)
+        scale_factor = pipe.vae.config.scaling_factor
 
         scheduler_config = {
                 'num_train_timesteps': 1000,
@@ -333,11 +334,11 @@ class iclight_diffusers_sampler:
             width=width,
             cross_attention_kwargs={'concat_conds': concat_conds},
             generator=generator,
-                output_type="pt",
+                output_type="latent",
             ).images
-
-            image_out = images.permute(0, 2, 3, 1).cpu().float()
-            return (image_out,)
+            images = 1.0 / scale_factor * images 
+            #image_out = images.permute(0, 2, 3, 1).cpu().float()
+            return ({"samples": images},)
                 
 NODE_CLASS_MAPPINGS = {
     "diffusers_model_loader": diffusers_model_loader,
