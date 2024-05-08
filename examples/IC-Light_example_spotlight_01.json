@@ -1,0 +1,791 @@
+{
+  "last_node_id": 34,
+  "last_link_id": 57,
+  "nodes": [
+    {
+      "id": 6,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        563,
+        285
+      ],
+      "size": {
+        "0": 315,
+        "1": 98
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            47
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            2
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            3,
+            8,
+            32
+          ],
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "1_5/Deliberate_v6 (SFW).safetensors"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "diffusers_model_loader",
+      "pos": [
+        996,
+        292
+      ],
+      "size": {
+        "0": 267,
+        "1": 66
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 47,
+          "slot_index": 0
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 2
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "diffusers_model",
+          "type": "DIFFUSERSMODEL",
+          "links": [
+            26
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "diffusers_model_loader"
+      }
+    },
+    {
+      "id": 22,
+      "type": "LoadICLightUnetDiffusers",
+      "pos": [
+        1343,
+        301
+      ],
+      "size": {
+        "0": 447,
+        "1": 58
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "diffusersmodel",
+          "type": "DIFFUSERSMODEL",
+          "link": 26
+        }
+      ],
+      "outputs": [
+        {
+          "name": "DIFFUSERSMODEL",
+          "type": "DIFFUSERSMODEL",
+          "links": [
+            35
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadICLightUnetDiffusers"
+      },
+      "widgets_values": [
+        "iclight_sd15_fc.safetensors"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "VAEEncode",
+      "pos": [
+        1022,
+        469
+      ],
+      "size": {
+        "0": 210,
+        "1": 46
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 41,
+          "slot_index": 0
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            34
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEEncode"
+      }
+    },
+    {
+      "id": 25,
+      "type": "VAEEncode",
+      "pos": [
+        1055,
+        649
+      ],
+      "size": {
+        "0": 210,
+        "1": 46
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 56,
+          "slot_index": 0
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 32,
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            48
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEEncode"
+      }
+    },
+    {
+      "id": 10,
+      "type": "PreviewImage",
+      "pos": [
+        1842,
+        318
+      ],
+      "size": {
+        "0": 526.656982421875,
+        "1": 580.8809814453125
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 36
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 34,
+      "type": "GrowMaskWithBlur",
+      "pos": [
+        620,
+        1030
+      ],
+      "size": {
+        "0": 315,
+        "1": 246
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 52
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            53
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "mask_inverted",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GrowMaskWithBlur"
+      },
+      "widgets_values": [
+        0,
+        0,
+        true,
+        false,
+        59.400000000000006,
+        1,
+        1,
+        false
+      ]
+    },
+    {
+      "id": 26,
+      "type": "iclight_diffusers_sampler",
+      "pos": [
+        1372,
+        434
+      ],
+      "size": {
+        "0": 400,
+        "1": 382
+      },
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "diffusers_model",
+          "type": "DIFFUSERSMODEL",
+          "link": 35
+        },
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "link": 34
+        },
+        {
+          "name": "bg_latent",
+          "type": "LATENT",
+          "link": 48,
+          "slot_index": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            36
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "iclight_diffusers_sampler"
+      },
+      "widgets_values": [
+        512,
+        512,
+        15,
+        2,
+        0.9,
+        0,
+        "fixed",
+        "DPMSolverMultistepScheduler_SDE_karras",
+        "spotlight",
+        "bad quality, bad picture",
+        false
+      ]
+    },
+    {
+      "id": 9,
+      "type": "LoadImage",
+      "pos": [
+        104,
+        474
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            40
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "oldman.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 28,
+      "type": "ImageResize+",
+      "pos": [
+        482,
+        479
+      ],
+      "size": {
+        "0": 315,
+        "1": 218
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 40
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            41
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            54
+          ],
+          "shape": 3
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            55
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageResize+"
+      },
+      "widgets_values": [
+        512,
+        512,
+        "nearest",
+        false,
+        "always",
+        8
+      ]
+    },
+    {
+      "id": 30,
+      "type": "MaskToImage",
+      "pos": [
+        663,
+        806
+      ],
+      "size": {
+        "0": 210,
+        "1": 26
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 50
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            56,
+            57
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MaskToImage"
+      }
+    },
+    {
+      "id": 29,
+      "type": "CreateShapeMask",
+      "pos": [
+        262,
+        912
+      ],
+      "size": [
+        315,
+        270
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "frame_width",
+          "type": "INT",
+          "link": 54,
+          "widget": {
+            "name": "frame_width"
+          },
+          "slot_index": 0
+        },
+        {
+          "name": "frame_height",
+          "type": "INT",
+          "link": 55,
+          "widget": {
+            "name": "frame_height"
+          },
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            52
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "mask_inverted",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CreateShapeMask"
+      },
+      "widgets_values": [
+        "circle",
+        1,
+        256,
+        256,
+        0,
+        512,
+        512,
+        256,
+        256
+      ]
+    },
+    {
+      "id": 32,
+      "type": "RemapMaskRange",
+      "pos": [
+        610,
+        890
+      ],
+      "size": {
+        "0": 315,
+        "1": 82
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 53
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            50
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RemapMaskRange"
+      },
+      "widgets_values": [
+        0,
+        0.9
+      ]
+    },
+    {
+      "id": 33,
+      "type": "PreviewImage",
+      "pos": [
+        989,
+        893
+      ],
+      "size": [
+        342,
+        347
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 57
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    }
+  ],
+  "links": [
+    [
+      2,
+      6,
+      1,
+      5,
+      1,
+      "CLIP"
+    ],
+    [
+      3,
+      6,
+      2,
+      5,
+      2,
+      "VAE"
+    ],
+    [
+      8,
+      6,
+      2,
+      8,
+      1,
+      "VAE"
+    ],
+    [
+      26,
+      5,
+      0,
+      22,
+      0,
+      "DIFFUSERSMODEL"
+    ],
+    [
+      32,
+      6,
+      2,
+      25,
+      1,
+      "VAE"
+    ],
+    [
+      34,
+      8,
+      0,
+      26,
+      1,
+      "LATENT"
+    ],
+    [
+      35,
+      22,
+      0,
+      26,
+      0,
+      "DIFFUSERSMODEL"
+    ],
+    [
+      36,
+      26,
+      0,
+      10,
+      0,
+      "IMAGE"
+    ],
+    [
+      40,
+      9,
+      0,
+      28,
+      0,
+      "IMAGE"
+    ],
+    [
+      41,
+      28,
+      0,
+      8,
+      0,
+      "IMAGE"
+    ],
+    [
+      47,
+      6,
+      0,
+      5,
+      0,
+      "MODEL"
+    ],
+    [
+      48,
+      25,
+      0,
+      26,
+      2,
+      "LATENT"
+    ],
+    [
+      50,
+      32,
+      0,
+      30,
+      0,
+      "MASK"
+    ],
+    [
+      52,
+      29,
+      0,
+      34,
+      0,
+      "MASK"
+    ],
+    [
+      53,
+      34,
+      0,
+      32,
+      0,
+      "MASK"
+    ],
+    [
+      54,
+      28,
+      1,
+      29,
+      0,
+      "INT"
+    ],
+    [
+      55,
+      28,
+      2,
+      29,
+      1,
+      "INT"
+    ],
+    [
+      56,
+      30,
+      0,
+      25,
+      0,
+      "IMAGE"
+    ],
+    [
+      57,
+      30,
+      0,
+      33,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
