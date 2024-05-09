@@ -1,6 +1,9 @@
 # ComfyUI wrapper nodes for IC-light
 
-work in progress
+# UPDATE: 
+moving my efforts into a more native implementation: https://github.com/kijai/ComfyUI-IC-Light
+
+## unfinished and development stopped
 Original repo: https://github.com/lllyasviel/IC-Light/
 
 Models: https://huggingface.co/lllyasviel/ic-light/tree/main
